@@ -34,7 +34,6 @@ const Page = () => {
       }
     } catch (error: any) {
       alert(error.response.data.error);
-      // Handle login error (e.g., show error message)
     }
   };
 
@@ -77,7 +76,7 @@ const Page = () => {
           </button>
         </form>
         <p className="text-center text-gray-600 mt-6">
-          Dont have an account?{" "}
+          Don&apos;t have an account?{" "}
           <a
             href="/signup"
             className="text-blue-600 hover:text-blue-800 font-semibold"
