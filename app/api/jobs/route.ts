@@ -3,12 +3,12 @@ import Job from "@/models/jobModel";
 import getDataFromToken from "@/getDataFromToken";
 import { NextRequest, NextResponse } from "next/server";
 
-export default async function handler(req: NextRequest, res: NextResponse) {
+export async function GET(req: NextRequest) {
   console.log("2222222222222222222222api hitting22222222222222222222222222");
   await connectDB();
 
   const getIdFromToken = getDataFromToken(req);
-  if (req.method === "GET" && getIdFromToken) {
+  if (getIdFromToken) {
     try {
       const jobs = await Job.find();
 
@@ -21,16 +21,30 @@ export default async function handler(req: NextRequest, res: NextResponse) {
         { status: 200 }
       );
     } catch (err) {
-      const response = NextResponse.json(
+      return NextResponse.json(
         {
           message: "something went wrong",
-          success: true,
+          success: false,
         },
         { status: 500 }
       );
-      return response;
     }
-  } else if (req.method === "POST" && getIdFromToken) {
+  } else {
+    return NextResponse.json(
+      {
+        message: "Unauthorized",
+        success: false,
+      },
+      { status: 401 }
+    );
+  }
+}
+
+export async function POST(req: NextRequest) {
+  await connectDB();
+
+  const getIdFromToken = getDataFromToken(req);
+  if (getIdFromToken) {
     try {
       const { title, description, experience } = (await req.json()) as {
         title: string;
@@ -49,23 +63,21 @@ export default async function handler(req: NextRequest, res: NextResponse) {
         { status: 201 }
       );
     } catch (err) {
-      const response = NextResponse.json(
+      return NextResponse.json(
         {
           message: "something went wrong",
-          success: true,
+          success: false,
         },
         { status: 500 }
       );
-      return response;
     }
   } else {
-    const response = NextResponse.json(
+    return NextResponse.json(
       {
-        message: "Method " + req.method + " Not Allowed",
+        message: "Unauthorized",
         success: false,
       },
-      { status: 405 }
+      { status: 401 }
     );
-    return response;
   }
 }
