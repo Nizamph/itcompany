@@ -110,9 +110,9 @@ const Page = () => {
             Our Company Culture
           </h2>
           <p className="mt-6 text-lg text-blue-50 leading-relaxed max-w-3xl mx-auto">
-            At TechSolutions, we believe in fostering a collaborative and
+            At TechSolutions we believe in fostering a collaborative and
             inclusive environment where innovation thrives. We value creativity,
-            dedication, and teamwork, and we're committed to helping our
+            dedication, and teamwork, and we are committed to helping our
             employees grow both professionally and personally.
           </p>
         </div>
